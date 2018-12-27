@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    elementFormDefault="qualified"
+
+    targetNamespace="https://github.com/erasmus-without-paper/ewp-specs-api-emrex-gateway/tree/stable-v1"
+    xmlns="https://github.com/erasmus-without-paper/ewp-specs-api-emrex-gateway/tree/stable-v1"
+>
+
+    <xs:annotation>
+        <xs:documentation>
+            This schema is a part of the Erasmus Without Paper project. Before you start
+            using it, make sure you have read the general rules described here:
+
+            http://developers.erasmuswithoutpaper.eu/
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:element name="response">
+        <xs:annotation>
+            <xs:documentation>
+                This describes the format of the response returned by the EWP EMREX Gateway API.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="redirect-url" minOccurs="1" maxOccurs="1" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The URL at which the student's browser is to be redirected.
+
+                            Once this URL is received, the client should redirect the student's browser at
+                            this address. This will resume the "usual" EMREX NCP progress. The ToR will be
+                            transferred exactly in the same fashion as it has been defined in the original
+                            NCP specification. The client will expect to receive it at its `returnUrl`
+                            callback page.
+
+                            Note, that the work of EMREX Gateway API is complete once `redirect-url` is
+                            received be the client. All the remaining stages of the process *don't* make
+                            use of EWP, nor its security methods. So, for example, the ELMO result will not
+                            be signed with EWP's HTTP Signature, etc (however, it will still be secured
+                            with security methods defined in EMREX).
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
